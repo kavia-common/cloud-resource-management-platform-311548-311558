@@ -1,35 +1,36 @@
-import pluginJs from "@eslint/js";
-import pluginReact from "eslint-plugin-react";
+import js from '@eslint/js';
+import globals from 'globals';
+import reactPlugin from 'eslint-plugin-react';
+import reactHooks from 'eslint-plugin-react-hooks';
+import reactRefresh from 'eslint-plugin-react-refresh';
+import tseslint from 'typescript-eslint';
 
-export default [
-  { files: ["**/*.{js,mjs,cjs,jsx}"] },
-  { 
-    languageOptions: { 
-      parserOptions: {
-        ecmaVersion: "latest",
-        sourceType: "module",
-        ecmaFeatures: { jsx: true }
-      },
-      globals: {
-        document: true,
-        window: true,
-        test: true,
-        expect: true
-      }
+export default tseslint.config(
+  {
+    ignores: ['node_modules/**', 'build/**', 'dist/**', '.vite/**', 'coverage/**']
+  },
+  js.configs.recommended,
+  ...tseslint.configs.recommended,
+  {
+    files: ['**/*.{ts,tsx}'],
+    languageOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+      globals: globals.browser
+    },
+    plugins: {
+      react: reactPlugin,
+      'react-hooks': reactHooks,
+      'react-refresh': reactRefresh
+    },
+    settings: {
+      react: { version: 'detect' }
     },
     rules: {
-
-     'no-unused-vars': ['error', { varsIgnorePattern: 'React|App' }]
-
-    }
-  },
-  pluginJs.configs.recommended,
-  {
-    plugins: { react: pluginReact },
-    rules: {
-      "react/react-in-jsx-scope": "off",
-      "react/jsx-uses-react": "off",
-      "react/jsx-uses-vars": "error"
+      ...reactHooks.configs.recommended.rules,
+      'react/react-in-jsx-scope': 'off',
+      'react/jsx-uses-react': 'off',
+      'react-refresh/only-export-components': ['warn', { allowConstantExport: true }]
     }
   }
-]
+);

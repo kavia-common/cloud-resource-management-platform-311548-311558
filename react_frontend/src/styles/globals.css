@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: theme(fontFamily.sans);
+  }
+
+  body {
+    @apply bg-background text-text;
+  }
+}
+
+@layer components {
+  .crm-card {
+    @apply rounded-xl border border-gray-200 bg-surface p-4 shadow-soft;
+  }
+
+  .crm-title {
+    @apply text-lg font-semibold text-text;
+  }
+
+  .crm-muted {
+    @apply text-sm text-secondary;
+  }
+
+  .crm-input {
+    @apply w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-text shadow-sm outline-none ring-0 placeholder:text-gray-400 focus:border-primary focus:ring-2 focus:ring-primary/20;
+  }
+
+  .crm-button {
+    @apply inline-flex items-center justify-center rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white shadow-soft hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary/30 disabled:cursor-not-allowed disabled:opacity-60;
+  }
+
+  .crm-button-secondary {
+    @apply inline-flex items-center justify-center rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm font-semibold text-text shadow-soft hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary/20;
+  }
+}
